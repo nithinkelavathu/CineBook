@@ -53,7 +53,7 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/api/auth/send-otp", { email });
+      await axios.post("https://cinebook-xypk.onrender.com/api/auth/send-otp", { email });
       alert("Verification code sent to your email! 📧");
       setTimer(300); // Reset timer
       setStep(2);
@@ -69,7 +69,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", {
+      await axios.post("https://cinebook-xypk.onrender.com/api/auth/signup", {
         name,
         email,
         password,
@@ -96,8 +96,8 @@ const Signup = () => {
           <span style={styles.logoIcon}>{step === 1 ? "🍿" : "🛡️"}</span>
           <h2 style={styles.title}>{step === 1 ? "Create Account" : "Verify Email"}</h2>
           <p style={styles.subtitle}>
-            {step === 1 
-              ? "Join CineBook to book tickets easily" 
+            {step === 1
+              ? "Join CineBook to book tickets easily"
               : `Enter the 6-digit code sent to ${email}`}
           </p>
         </div>
@@ -166,15 +166,15 @@ const Signup = () => {
                 placeholder="6-digit code"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                style={{...styles.input, textAlign: "center", fontSize: "24px", letterSpacing: "8px"}}
+                style={{ ...styles.input, textAlign: "center", fontSize: "24px", letterSpacing: "8px" }}
                 maxLength="6"
                 required
               />
-              <div style={{display: "flex", justifyContent: "space-between", marginTop: "10px", fontSize: "14px"}}>
-                <span style={{color: timer > 0 ? "#94a3b8" : "#f43f5e"}}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px", fontSize: "14px" }}>
+                <span style={{ color: timer > 0 ? "#94a3b8" : "#f43f5e" }}>
                   {timer > 0 ? `Expires in: ${formatTime(timer)}` : "Code expired!"}
                 </span>
-                <span 
+                <span
                   style={{
                     color: timer === 0 && !loading ? "#3b82f6" : "#4b5563",
                     cursor: timer === 0 && !loading ? "pointer" : "default",
@@ -192,9 +192,9 @@ const Signup = () => {
               {loading ? "Verifying..." : "Verify & Signup"}
             </button>
 
-            <button 
-              type="button" 
-              style={{...styles.button, background: "transparent", border: "1px solid #3b82f6", color: "#3b82f6", boxShadow: "none", marginTop: "10px"}} 
+            <button
+              type="button"
+              style={{ ...styles.button, background: "transparent", border: "1px solid #3b82f6", color: "#3b82f6", boxShadow: "none", marginTop: "10px" }}
               onClick={() => setStep(1)}
               disabled={loading}
             >
@@ -205,8 +205,8 @@ const Signup = () => {
 
         <p style={styles.note}>
           Already have an account?{" "}
-          <span 
-            style={styles.link} 
+          <span
+            style={styles.link}
             onClick={() => navigate("/login")}
           >
             Sign in here
@@ -352,9 +352,9 @@ const styles = {
 
 const injectStyles = () => {
   if (typeof document !== 'undefined' && !document.getElementById('cinebook-signup-styles')) {
-      const style = document.createElement('style');
-      style.id = 'cinebook-signup-styles';
-      style.innerHTML = `
+    const style = document.createElement('style');
+    style.id = 'cinebook-signup-styles';
+    style.innerHTML = `
           input:focus {
               border-color: #3b82f6 !important;
               box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
@@ -367,7 +367,7 @@ const injectStyles = () => {
               transform: translateY(1px);
           }
       `;
-      document.head.appendChild(style);
+    document.head.appendChild(style);
   }
 };
 injectStyles();

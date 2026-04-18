@@ -16,7 +16,7 @@ const MyBookings = () => {
   const fetchBookings = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/bookings/my",
+        "https://cinebook-xypk.onrender.com/api/bookings/my",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ const MyBookings = () => {
   const handleCancel = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/bookings/${id}`,
+        `https://cinebook-xypk.onrender.com/api/bookings/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

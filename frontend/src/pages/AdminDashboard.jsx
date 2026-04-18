@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       const res = await axios.get(
-        "http://localhost:5000/api/admin/dashboard",
+        "https://cinebook-xypk.onrender.com/api/admin/dashboard",
         {
           headers: {
             Authorization: `Bearer ${auth.token}`,
@@ -64,7 +64,7 @@ const AdminDashboard = () => {
         {stats.revenuePerMovie && Object.entries(stats.revenuePerMovie).map(([title, amount]) => (
           <div key={title} style={styles.movieRow}>
             <span>{title}</span>
-            <strong style={{color: "#10b981"}}>₹{amount}</strong>
+            <strong style={{ color: "#10b981" }}>₹{amount}</strong>
           </div>
         ))}
       </div>

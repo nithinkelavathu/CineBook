@@ -28,9 +28,9 @@ const PaymentProcessing = () => {
 
         // We assume payment was successful since we are on success_url.
         // In a strict production environment, we should verify the session_id status with Stripe here.
-        
+
         const res = await axios.post(
-          "http://localhost:5000/api/bookings",
+          "https://cinebook-xypk.onrender.com/api/bookings",
           bookingData,
           {
             headers: {

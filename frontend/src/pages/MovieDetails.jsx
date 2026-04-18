@@ -12,7 +12,7 @@ const MovieDetails = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/movies/${id}`);
+        const res = await fetch(`https://cinebook-xypk.onrender.com/api/movies/${id}`);
         const data = await res.json();
         setMovie(data);
       } catch (error) {

@@ -32,7 +32,7 @@ const SnacksPaymentProcessing = () => {
 
         // Call our original update snacks endpoint
         const res = await axios.put(
-          `http://localhost:5000/api/bookings/${bookingId}/snacks`,
+          `https://cinebook-xypk.onrender.com/api/bookings/${bookingId}/snacks`,
           { snacks, snacksCost },
           {
             headers: {
@@ -42,7 +42,7 @@ const SnacksPaymentProcessing = () => {
         );
 
         setStatus("✅ Snacks added successfully! Taking you to your ticket...");
-        
+
         // Clear storage
         sessionStorage.removeItem("pendingSnacks");
 

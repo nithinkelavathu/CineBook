@@ -9,7 +9,7 @@ const AdminBookings = () => {
 
   const fetchBookings = async () => {
     const res = await axios.get(
-      "http://localhost:5000/api/admin/bookings",
+      "https://cinebook-xypk.onrender.com/api/admin/bookings",
       {
         headers: {
           Authorization: `Bearer ${auth.token}`,
@@ -25,7 +25,7 @@ const AdminBookings = () => {
 
   const cancelBooking = async (id) => {
     await axios.put(
-      `http://localhost:5000/api/admin/bookings/${id}/cancel`,
+      `https://cinebook-xypk.onrender.com/api/admin/bookings/${id}/cancel`,
       {},
       {
         headers: {

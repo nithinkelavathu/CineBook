@@ -23,7 +23,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://cinebook-xypk.onrender.com/api/auth/login",
         { email, password }
       );
 
@@ -97,8 +97,8 @@ function Login() {
 
         <p style={styles.note}>
           Don't have an account?{" "}
-          <span 
-            style={styles.link} 
+          <span
+            style={styles.link}
             onClick={() => navigate("/signup")}
           >
             Create one now
@@ -237,9 +237,9 @@ const styles = {
 
 // Simple global CSS for the hover effects and inputs
 const injectStyles = () => {
-    if (typeof document !== 'undefined') {
-        const style = document.createElement('style');
-        style.innerHTML = `
+  if (typeof document !== 'undefined') {
+    const style = document.createElement('style');
+    style.innerHTML = `
             input:focus {
                 border-color: #f43f5e !important;
                 box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.2) !important;
@@ -252,8 +252,8 @@ const injectStyles = () => {
                 transform: translateY(1px);
             }
         `;
-        document.head.appendChild(style);
-    }
+    document.head.appendChild(style);
+  }
 };
 injectStyles();
 

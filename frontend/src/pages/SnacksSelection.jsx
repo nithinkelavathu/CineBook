@@ -71,7 +71,7 @@ const SnacksSelection = () => {
 
       // 1. Create Stripe Checkout Session for Snacks
       const res = await axios.post(
-        `http://localhost:5000/api/bookings/${booking._id}/snacks/create-checkout-session`,
+        `https://cinebook-xypk.onrender.com/api/bookings/${booking._id}/snacks/create-checkout-session`,
         {
           total: totalCost,
           bookingId: booking._id,
@@ -120,15 +120,15 @@ const SnacksSelection = () => {
 
       <div style={styles.footerPanel}>
         <div style={styles.footerInfo}>
-          <p style={styles.footerTotal}>Snacks Total: <span style={{color: "#10b981"}}>₹{totalCost}</span></p>
+          <p style={styles.footerTotal}>Snacks Total: <span style={{ color: "#10b981" }}>₹{totalCost}</span></p>
         </div>
         <div style={styles.footerActions}>
           <button style={styles.skipBtn} onClick={handleSkip} disabled={loading}>
             Skip & View Ticket
           </button>
-          <button 
-            style={styles.payBtn} 
-            onClick={totalCost > 0 ? handlePayment : handleSkip} 
+          <button
+            style={styles.payBtn}
+            onClick={totalCost > 0 ? handlePayment : handleSkip}
             disabled={loading}
           >
             {loading ? "Processing..." : totalCost > 0 ? `Pay ₹${totalCost} for Snacks` : "Continue"}

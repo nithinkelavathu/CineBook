@@ -35,6 +35,10 @@ const swaggerOptions = {
         url: "http://localhost:5000",
         description: "Development Server",
       },
+      {
+        url: "https://cinebook-xypk.onrender.com",
+        description: "Production Server",
+      },
     ],
     components: {
       securitySchemes: {

@@ -13,7 +13,7 @@ const AdminUsers = () => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/admin/users",
+          "https://cinebook-xypk.onrender.com/api/admin/users",
           {
             headers: {
               Authorization: `Bearer ${auth.token}`,
@@ -32,7 +32,7 @@ const AdminUsers = () => {
   const toggleSubscription = async (id) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/admin/users/${id}/subscription`,
+        `https://cinebook-xypk.onrender.com/api/admin/users/${id}/subscription`,
         {},
         {
           headers: { Authorization: `Bearer ${auth.token}` },
@@ -84,7 +84,7 @@ const AdminUsers = () => {
                 </span>
               </td>
               <td>
-                <button 
+                <button
                   style={styles.toggleBtn}
                   onClick={() => toggleSubscription(user._id)}
                 >

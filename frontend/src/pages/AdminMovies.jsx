@@ -18,17 +18,17 @@ const AdminMovies = () => {
   const { auth } = useContext(AuthContext);
 
   // Fetch Movies
-const fetchMovies = async () => {
-  const res = await axios.get(
-    "http://localhost:5000/api/admin/movies",
-    {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    }
-  );
-  setMovies(res.data);
-};
+  const fetchMovies = async () => {
+    const res = await axios.get(
+      "https://cinebook-xypk.onrender.com/api/admin/movies",
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    );
+    setMovies(res.data);
+  };
 
   useEffect(() => {
     fetchMovies();
@@ -45,14 +45,14 @@ const fetchMovies = async () => {
 
     if (editingId) {
       await axios.put(
-        `http://localhost:5000/api/admin/movies/${editingId}`,
+        `https://cinebook-xypk.onrender.com/api/admin/movies/${editingId}`,
         form,
         { headers: { Authorization: `Bearer ${auth.token}` } }
       );
       setEditingId(null);
     } else {
       await axios.post(
-        "http://localhost:5000/api/admin/movies",
+        "https://cinebook-xypk.onrender.com/api/admin/movies",
         form,
         { headers: { Authorization: `Bearer ${auth.token}` } }
       );
@@ -65,7 +65,7 @@ const fetchMovies = async () => {
   // Delete Movie
   const deleteMovie = async (id) => {
     await axios.delete(
-      `http://localhost:5000/api/admin/movies/${id}`,
+      `https://cinebook-xypk.onrender.com/api/admin/movies/${id}`,
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     fetchMovies();

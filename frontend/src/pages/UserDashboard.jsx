@@ -19,7 +19,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/movies");
+        const res = await axios.get("https://cinebook-xypk.onrender.com/api/movies");
         setMovies(res.data);
       } catch (error) {
         console.error("Failed to fetch movies", error);
@@ -32,18 +32,18 @@ const UserDashboard = () => {
 
   return (
     <div style={styles.container}>
-      
+
       {/* Top Navbar */}
       <nav style={styles.navbar}>
         <div style={styles.navLeft}>
           <span style={styles.logoIcon}>🍿</span>
           <h2 style={styles.logo}>CineBook</h2>
         </div>
-        
+
         <div style={styles.navCenter}>
           <div style={styles.searchContainer}>
             <span style={styles.searchIcon}>🔍</span>
-            <input type="text" placeholder="Search movies, theatres..." style={styles.search}/>
+            <input type="text" placeholder="Search movies, theatres..." style={styles.search} />
           </div>
         </div>
 
@@ -71,9 +71,9 @@ const UserDashboard = () => {
           <h2 style={styles.sectionTitle}>Now Showing</h2>
           <div style={styles.filters}>
             {["All", "Action", "Comedy", "Sci-Fi"].map(genre => (
-              <span 
+              <span
                 key={genre}
-                style={selectedGenre === genre ? styles.filterActive : styles.filterItem} 
+                style={selectedGenre === genre ? styles.filterActive : styles.filterItem}
                 onClick={() => setSelectedGenre(genre)}
               >
                 {genre}
@@ -90,46 +90,46 @@ const UserDashboard = () => {
             </div>
           ) : movies.length === 0 ? (
             <div style={styles.emptyState}>
-              <span style={{fontSize: '48px'}}>📽️</span>
+              <span style={{ fontSize: '48px' }}>📽️</span>
               <p>No movies showing currently. Check back later!</p>
             </div>
           ) : (
             movies.filter(m => selectedGenre === "All" || m.genre === selectedGenre).length === 0 ? (
               <div style={styles.emptyState}>
-                <span style={{fontSize: '48px'}}>🍿</span>
+                <span style={{ fontSize: '48px' }}>🍿</span>
                 <p>No {selectedGenre} movies found.</p>
               </div>
             ) : (
-            movies.filter(m => selectedGenre === "All" || m.genre === selectedGenre).map((movie) => (
-              <div key={movie._id} style={styles.card} className="movie-card">
-                <div style={styles.imageContainer}>
-                  <img 
-                    src={movie.image || "https://fakeimg.pl/300x450?text=No+Image"} 
-                    alt={movie.title} 
-                    style={styles.image}
-                    className="movie-image"
-                  />
-                  <div style={styles.imageOverlay}>
-                    <span style={styles.ratingBadge}>⭐ 4.5</span>
+              movies.filter(m => selectedGenre === "All" || m.genre === selectedGenre).map((movie) => (
+                <div key={movie._id} style={styles.card} className="movie-card">
+                  <div style={styles.imageContainer}>
+                    <img
+                      src={movie.image || "https://fakeimg.pl/300x450?text=No+Image"}
+                      alt={movie.title}
+                      style={styles.image}
+                      className="movie-image"
+                    />
+                    <div style={styles.imageOverlay}>
+                      <span style={styles.ratingBadge}>⭐ 4.5</span>
+                    </div>
+                  </div>
+                  <div style={styles.cardContent}>
+                    <h3 style={styles.movieTitle}>{movie.title}</h3>
+                    <div style={styles.movieMeta}>
+                      <span style={styles.moviePrice}>₹{movie.price}</span>
+                      <span style={styles.movieFormat}>2D / 3D</span>
+                    </div>
+                    <button
+                      style={styles.bookBtn}
+                      onClick={() => navigate(`/movie/${movie._id}`)}
+                      className="book-btn"
+                    >
+                      Book Tickets
+                    </button>
                   </div>
                 </div>
-                <div style={styles.cardContent}>
-                  <h3 style={styles.movieTitle}>{movie.title}</h3>
-                  <div style={styles.movieMeta}>
-                    <span style={styles.moviePrice}>₹{movie.price}</span>
-                    <span style={styles.movieFormat}>2D / 3D</span>
-                  </div>
-                  <button
-                    style={styles.bookBtn}
-                    onClick={() => navigate(`/movie/${movie._id}`)}
-                    className="book-btn"
-                  >
-                    Book Tickets
-                  </button>
-                </div>
-              </div>
-            ))
-          ))}
+              ))
+            ))}
         </div>
       </div>
     </div>
@@ -442,9 +442,9 @@ const styles = {
 
 const injectStyles = () => {
   if (typeof document !== 'undefined' && !document.getElementById('cinebook-dashboard-styles')) {
-      const style = document.createElement('style');
-      style.id = 'cinebook-dashboard-styles';
-      style.innerHTML = `
+    const style = document.createElement('style');
+    style.id = 'cinebook-dashboard-styles';
+    style.innerHTML = `
           @keyframes spin { 100% { transform: rotate(360deg); } }
           
           .movie-card:hover {
@@ -467,7 +467,7 @@ const injectStyles = () => {
             box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.1) !important;
           }
       `;
-      document.head.appendChild(style);
+    document.head.appendChild(style);
   }
 };
 injectStyles();

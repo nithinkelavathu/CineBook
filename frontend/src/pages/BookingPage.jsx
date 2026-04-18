@@ -34,7 +34,7 @@ const BookingPage = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await axios.get("https://cinebook-xypk.onrender.com/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUserProfile(res.data);
@@ -50,7 +50,7 @@ const BookingPage = () => {
     const fetchBookedSeats = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/bookings/show-seats", {
+        const res = await axios.get("https://cinebook-xypk.onrender.com/api/bookings/show-seats", {
           params: {
             movieId: movie._id,
             theatre: selectedTheatre,
@@ -140,12 +140,12 @@ const BookingPage = () => {
         total: finalTotal,
         discountApplied
       };
-      
+
       sessionStorage.setItem("pendingBooking", JSON.stringify(bookingDataToSave));
 
       // Call Backend to generate Stripe Checkout URL
       const res = await axios.post(
-        "http://localhost:5000/api/bookings/create-checkout-session",
+        "https://cinebook-xypk.onrender.com/api/bookings/create-checkout-session",
         {
           total: finalTotal,
           movieTitle: movie.title
@@ -182,7 +182,7 @@ const BookingPage = () => {
       </p>
 
       {fetchingSeats ? (
-        <h3 style={{marginTop: "50px"}}>Loading seating layout...</h3>
+        <h3 style={{ marginTop: "50px" }}>Loading seating layout...</h3>
       ) : (
         <div style={styles.seatContainer}>
           <div style={styles.screen}>SCREEN</div>
@@ -204,10 +204,10 @@ const BookingPage = () => {
                         backgroundColor: seat.booked
                           ? "#dc2626"
                           : isSelected
-                          ? "#f43f5e"
-                          : seat.type === "balcony"
-                          ? "#f59e0b"
-                          : "#334155",
+                            ? "#f43f5e"
+                            : seat.type === "balcony"
+                              ? "#f59e0b"
+                              : "#334155",
                         cursor: seat.booked ? "not-allowed" : "pointer",
                       }}
                     >
@@ -231,7 +231,7 @@ const BookingPage = () => {
         <p>Selected Seats: {selectedSeats.join(", ") || "None"}</p>
         <p>Subtotal: ₹{subtotal}</p>
         {discountPercentage > 0 && (
-          <p style={{color: "#10b981"}}>Discount Applied ({discountPercentage}%): -₹{discountApplied}</p>
+          <p style={{ color: "#10b981" }}>Discount Applied ({discountPercentage}%): -₹{discountApplied}</p>
         )}
         <h3>Total Amount: ₹{finalTotal}</h3>
 
