@@ -15,19 +15,16 @@ jobs:
         image: mongo:6.0
         ports:
           - 27017:27017
-      redis:
-        image: redis:7.0
-        ports:
-          - 6379:6379
 
     strategy:
       matrix:
         node-version: [18.x, 20.x]
 
     env:
-      MONGO_URI: mongodb://localhost:27017/cinebook
-      JWT_SECRET: test_jwt_secret_key_123
-      REDIS_URL: redis://localhost:6379
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+      UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
 
     steps:
     - uses: actions/checkout@v4

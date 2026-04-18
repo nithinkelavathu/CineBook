@@ -16,7 +16,8 @@ const cacheMiddleware = (durationInSeconds = 3600) => {
       if (cachedData) {
         const duration = (performance.now() - start).toFixed(2);
         console.log(`[CACHE HIT] 🚀 Serving ${key} from Redis | Time: ${duration}ms`);
-        return res.json(JSON.parse(cachedData));
+        const data = typeof cachedData === "string" ? JSON.parse(cachedData) : cachedData;
+        return res.json(data);
       }
 
       console.log(`[CACHE MISS] 🐢 Fetching ${key} from MongoDB`);
