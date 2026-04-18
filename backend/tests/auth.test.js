@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("../routes/authRoutes");
 const User = require("../models/user");
 const Otp = require("../models/Otp");
+const redisClient = require("../utils/redisClient");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -18,12 +19,11 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 
 describe("Authentication API Tests", () => {
-  // Use a unique test database to avoid messing with development data
-  const TEST_URI = process.env.MONGO_URI.replace(/\/[^/]+$/, "/cinebook_test");
+  const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/cinebook";
+  const TEST_URI = MONGO_URI.replace(/\/[^/?]+(\?.*)?$/, "/cinebook_test$1");
 
   beforeAll(async () => {
     await mongoose.connect(TEST_URI);
-    const redisClient = require("../utils/redisClient");
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
@@ -33,11 +33,10 @@ describe("Authentication API Tests", () => {
     await User.deleteMany({});
     await Otp.deleteMany({});
     await mongoose.connection.close();
-    const redisClient = require("../utils/redisClient");
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
-    redisClient.quit();
+    await redisClient.quit();
   });
 
   const testUser = {

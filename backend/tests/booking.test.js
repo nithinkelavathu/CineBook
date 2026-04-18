@@ -6,6 +6,7 @@ const bookingRoutes = require("../routes/bookingRoutes");
 const User = require("../models/user");
 const Movie = require("../models/Movie");
 const Booking = require("../models/Booking");
+const redisClient = require("../utils/redisClient");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -31,14 +32,15 @@ app.use(express.json());
 app.use("/api/bookings", bookingRoutes);
 
 describe("Booking API Tests", () => {
-  const TEST_URI = process.env.MONGO_URI.replace(/\/[^/]+$/, "/cinebook_test");
+  const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/cinebook";
+  const TEST_URI = MONGO_URI.replace(/\/[^/?]+(\?.*)?$/, "/cinebook_test$1");
+  
   let token;
   let userId;
   let testMovieId;
 
   beforeAll(async () => {
     await mongoose.connect(TEST_URI);
-    const redisClient = require("../utils/redisClient");
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
@@ -65,11 +67,10 @@ describe("Booking API Tests", () => {
     await Movie.deleteMany({});
     await Booking.deleteMany({});
     await mongoose.connection.close();
-    const redisClient = require("../utils/redisClient");
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
-    redisClient.quit();
+    await redisClient.quit();
   });
 
   it("POST /api/bookings/create-checkout-session - should return stripe session", async () => {

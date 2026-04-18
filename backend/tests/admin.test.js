@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const adminRoutes = require("../routes/adminRoutes");
 const User = require("../models/user");
 const Movie = require("../models/Movie");
+const redisClient = require("../utils/redisClient");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -14,14 +15,15 @@ app.use(express.json());
 app.use("/api/admin", adminRoutes);
 
 describe("Admin API Tests", () => {
-  const TEST_URI = process.env.MONGO_URI.replace(/\/[^/]+$/, "/cinebook_test");
+  const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/cinebook";
+  const TEST_URI = MONGO_URI.replace(/\/[^/?]+(\?.*)?$/, "/cinebook_test$1");
+  
   let adminToken;
   let userToken;
   let testMovieId;
 
   beforeAll(async () => {
     await mongoose.connect(TEST_URI);
-    const redisClient = require("../utils/redisClient");
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
@@ -57,11 +59,10 @@ describe("Admin API Tests", () => {
     await User.deleteMany({});
     await Movie.deleteMany({});
     await mongoose.connection.close();
-    const redisClient = require("../utils/redisClient");
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
-    redisClient.quit();
+    await redisClient.quit();
   });
 
   it("GET /api/admin/dashboard - should fail for non-admin user", async () => {

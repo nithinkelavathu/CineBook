@@ -3,21 +3,23 @@ const request = require("supertest");
 const express = require("express");
 const mongoose = require("mongoose");
 const movieRoutes = require("../routes/movieRoutes");
+const redisClient = require("../utils/redisClient");
 const dotenv = require("dotenv");
 
 dotenv.config();
 
-// Create an express app for testing router
 const app = express();
 app.use(express.json());
 app.use("/api/movies", movieRoutes);
 
 describe("Movie API Tests", () => {
-  const TEST_URI = process.env.MONGO_URI.replace(/\/[^/]+$/, "/cinebook_test");
+  // Use a safer default if MONGO_URI is missing
+  const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/cinebook";
+  const TEST_URI = MONGO_URI.replace(/\/[^/?]+(\?.*)?$/, "/cinebook_test$1");
 
   beforeAll(async () => {
     await mongoose.connect(TEST_URI);
-    const redisClient = require("../utils/redisClient");
+    // Compatibility: redisClient handles connection status internally
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
@@ -26,12 +28,10 @@ describe("Movie API Tests", () => {
   afterAll(async () => {
     // Properly clean up connections after test
     await mongoose.connection.close();
-    // close the redis client as well
-    const redisClient = require("../utils/redisClient");
     if (redisClient.status === "ready") {
       await redisClient.flushdb();
     }
-    redisClient.quit();
+    await redisClient.quit();
   });
 
   it("GET /api/movies - should get all movies", async () => {
