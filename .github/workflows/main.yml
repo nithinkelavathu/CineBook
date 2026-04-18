@@ -8,24 +8,49 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+      redis:
+        image: redis:7.0
+        ports:
+          - 6379:6379
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 20.x]
+
+    env:
+      MONGO_URI: mongodb://localhost:27017/cinebook
+      JWT_SECRET: test_jwt_secret_key_123
+      REDIS_URL: redis://localhost:6379
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: backend/package-lock.json
-    - name: Install dependencies
+
+    - name: Install Backend dependencies
       working-directory: ./backend
       run: npm ci
-    - name: Run tests
+
+    - name: Run Backend tests
       working-directory: ./backend
       run: npm run test
+
+    - name: Install Frontend dependencies
+      working-directory: ./frontend
+      run: npm ci
+
+    - name: Build Frontend
+      working-directory: ./frontend
+      run: npm run build
