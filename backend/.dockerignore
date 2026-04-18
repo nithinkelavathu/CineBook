@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.env
+Dockerfile
+.dockerignore
+.git
+.gitignore
+coverage
+users.txt
+cors.txt
+check_users.js
+check_otps.js
