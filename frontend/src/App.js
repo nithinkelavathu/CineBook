@@ -8,14 +8,14 @@ import AdminDashboard from "./pages/AdminDashboard";
 import MovieDetails from "./pages/MovieDetails";
 import BookingPage from "./pages/BookingPage";
 import BookingSuccess from "./pages/BookingSuccess";
-import PaymentProcessing from "./pages/PaymentProcessing"; // ✅ ADD
-import SnacksPaymentProcessing from "./pages/SnacksPaymentProcessing"; // NEW // ✅ ADD
+import PaymentProcessing from "./pages/PaymentProcessing"; 
+import SnacksPaymentProcessing from "./pages/SnacksPaymentProcessing"; 
 import MyBookings from "./pages/MyBookings";
-import SnacksSelection from "./pages/SnacksSelection"; // ✅ ADD
+import SnacksSelection from "./pages/SnacksSelection"; 
 
-import AdminMovies from "./pages/AdminMovies";      // ✅ ADD
-import AdminUsers from "./pages/AdminUsers";        // ✅ ADD
-import AdminBookings from "./pages/AdminBookings";  // ✅ ADD
+import AdminMovies from "./pages/AdminMovies";      
+import AdminUsers from "./pages/AdminUsers";        
+import AdminBookings from "./pages/AdminBookings";  
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
