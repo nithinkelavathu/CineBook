@@ -82,8 +82,8 @@ exports.createCheckoutSession = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `http://localhost:3000/payment-processing?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://localhost:3000/booking`,
+      success_url: `https://cine-book-delta.vercel.app/payment-processing?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://cine-book-delta.vercel.app/booking`,
     });
 
     res.json({ id: session.id, url: session.url });
@@ -114,8 +114,8 @@ exports.createSnacksCheckoutSession = async (req, res) => {
       ],
       mode: "payment",
       // Redirect to a specific snacks processing page
-      success_url: `http://localhost:3000/snacks-payment-processing?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`,
-      cancel_url: `http://localhost:3000/my-bookings`,
+      success_url: `https://cine-book-delta.vercel.app/snacks-payment-processing?session_id={CHECKOUT_SESSION_ID}&booking_id=${bookingId}`,
+      cancel_url: `https://cine-book-delta.vercel.app/my-bookings`,
     });
 
     res.json({ id: session.id, url: session.url });
