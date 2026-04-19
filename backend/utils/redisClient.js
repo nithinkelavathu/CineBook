@@ -26,6 +26,7 @@ const redisClient = {
   // Core methods
   get: async (key) => (redis ? await redis.get(key) : null),
   set: async (key, val, options) => (redis ? await redis.set(key, val, options) : null),
+  del: async (key) => (redis ? await redis.del(key) : null),
   
   // Shim for ioredis setex(key, seconds, value)
   setex: async (key, seconds, value) => {
