@@ -62,7 +62,7 @@ function Login() {
         <div style={styles.logoContainer}>
           <span style={styles.logoIcon}>🎬</span>
           <h2 style={styles.title}>Welcome Back</h2>
-          <p style={styles.subtitle}>CineBook - The Ultimate Movie Experience</p>
+          <p style={styles.subtitle}>Sign in to continue to CineBook</p>
         </div>
 
         <form onSubmit={handleSubmit} style={styles.form}>
