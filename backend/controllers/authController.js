@@ -68,7 +68,7 @@ exports.signup = async (req, res) => {
     // 5. Delete OTP after successful use
     await Otp.deleteOne({ _id: otpRecord._id });
 
-    res.status(201).json({ message: "User registered is successfully done! You can now login now happily" });
+    res.status(201).json({ message: "User registered is successfully done! You can now login" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
